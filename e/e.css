@@ -1,0 +1,142 @@
+/* P1-E "Departures": the name taken literally, lightly. Numbers and brands arrive on a split-flap board, the two
+   offers are tickets with stubs, the bureau's statement is a three-leg route a parcel travels as you scroll past,
+   contact is a boarding pass, and a flight path down the left edge shows where you are (each stop is a link).
+   Same words as the original; light and dark use its tokens. */
+:root{--f-head:"Archivo","Helvetica Neue",system-ui,sans-serif;--r:0;--board:#0B1433;--board-2:#121F4D;--flap:#16234F;--flap-ink:#F3F6FF;--flap-hi:#FFD24A}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--board:#060A1A;--board-2:#0E1840;--flap:#121C42}}
+:root[data-theme="dark"]{--board:#060A1A;--board-2:#0E1840;--flap:#121C42}
+h1,h2,h3{font-stretch:112%;font-weight:800;letter-spacing:-.035em;line-height:1.02}
+.def .w,.dest,.sign,.note .big,.legs p{font-family:"Frank Ruhl Libre","Times New Roman",serif}
+.btn{text-transform:uppercase;letter-spacing:.08em;font-size:.86rem;font-weight:800}
+.btn.small{font-size:.76rem}
+.brand .word{font-family:"Archivo",sans-serif;font-stretch:118%;font-weight:800}
+.tbtn,.quick a{border-radius:0}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.sec h2{font-size:clamp(2.3rem,1.5rem + 2.2vw,3.8rem);margin-top:.75rem}
+.sec-head-e{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:1rem 4rem;align-items:end;margin-bottom:clamp(2rem,3.5vw,3.5rem)}
+
+/* ---------- split-flap characters (built by e.js) ---------- */
+.flap{display:inline-flex;gap:.12em;font-weight:800;line-height:1}
+.flap .c{position:relative;display:inline-grid;place-items:center;width:1.02em;height:1.35em;background:var(--flap);color:var(--flap-ink);border-radius:.08em;overflow:hidden;
+  box-shadow:inset 0 -1px 0 rgba(0,0,0,.4)}
+.flap .c::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.55)}
+.flap .c.sp{background:transparent;box-shadow:none}.flap .c.sp::after{display:none}
+.flap .c.turn{animation:flip .09s linear}
+@keyframes flip{50%{transform:scaleY(.15);filter:brightness(1.6)}}
+
+/* ---------- hero ---------- */
+.hero-e{border-bottom:1px solid var(--line)}
+.hero-e-in{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:3rem clamp(2rem,5vw,5rem);align-items:center;min-height:calc(100svh - 4.75rem);padding-block:clamp(2.5rem,4vw,4rem)}
+.hero-copy-e{display:flex;flex-direction:column;gap:1.25rem}
+.hero-e h1{font-size:clamp(3rem,1.5rem + 4.2vw,6rem);font-weight:850;letter-spacing:-.045em;line-height:.95}
+.hero-e h1 .hi{color:var(--brand)}
+.hero-e .sub{font:700 clamp(1.25rem,1.05rem + .6vw,1.7rem)/1.25 var(--f-head);font-stretch:108%;color:var(--brand)}
+.board{position:relative;isolation:isolate;background:radial-gradient(80% 60% at 50% 0%,var(--board-2),transparent 70%),var(--board);color:var(--flap-ink);padding:clamp(1.25rem,2vw,2rem)}
+.board{box-shadow:-1rem -1rem 0 -1px var(--paper),-1rem -1rem 0 0 var(--frame),1rem 1rem 0 0 var(--sheet-a)}
+.board-top{display:flex;justify-content:space-between;align-items:center;padding-bottom:1rem;margin-bottom:.5rem;border-bottom:1px solid rgba(255,255,255,.12);font-size:.8rem;letter-spacing:.2em;color:#9DB4FF}
+.board-top .clock{color:var(--flap-hi);letter-spacing:.12em}
+.board ul{display:grid}
+.board li{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:1.25rem;padding:1.125rem 0;border-bottom:1px dashed rgba(255,255,255,.12)}
+.board .flap{font-size:clamp(2rem,1.3rem + 2vw,3.4rem)}
+.board .flap .c{color:var(--flap-hi)}
+.board .k{font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#C3CCEA;font-size:.95rem;line-height:1.3}
+.board-foot{margin-top:1.125rem;font-size:.82rem;color:#9DB4FF;letter-spacing:.04em}
+
+/* ---------- tickets ---------- */
+.ticket-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,3vw,3rem)}
+.ticket{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 9.5rem;background:var(--surface);border:1px solid var(--line);transition:translate .3s var(--ease),box-shadow .3s var(--ease)}
+.ticket:hover,.ticket:target{translate:-.375rem -.375rem;box-shadow:.75rem .75rem 0 0 var(--sheet-a),.75rem .75rem 0 1px var(--frame)}
+.t-main{display:flex;flex-direction:column;gap:1rem;padding:clamp(1.5rem,2.5vw,2.25rem)}
+.t-main h3{font-size:clamp(1.6rem,1.2rem + 1vw,2.2rem)}
+.t-main p{color:var(--ink-2)}
+.t-main .btn{align-self:flex-start;margin-top:auto}
+.t-stub{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:1rem;padding:1.5rem 1.125rem;border-left:2px dashed var(--line);background:color-mix(in srgb,var(--sheet-a) 45%,var(--surface))}
+.t-stub::before,.t-stub::after{content:"";position:absolute;left:-.8rem;width:1.5rem;height:1.5rem;border-radius:50%;background:var(--paper);border:1px solid var(--line)}
+.t-stub::before{top:-.8rem}.t-stub::after{bottom:-.8rem}
+.t-stub .lbl{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);font-weight:700}
+.route-ic{width:100%;height:auto;fill:none;stroke:var(--brand);stroke-width:2}
+.t-stub .code{font-size:2.3rem;font-weight:800;letter-spacing:.04em;color:var(--ink)}
+.bars{display:block;height:2.75rem;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 5px,transparent 5px 8px,var(--ink) 8px 11px,transparent 11px 13px);opacity:.75}
+
+/* ---------- route map ---------- */
+.route{background:color-mix(in srgb,var(--surface) 45%,transparent);border-block:1px solid var(--line)}
+.map{position:relative;height:clamp(8rem,14vw,13rem);margin:1rem 0 2rem}
+.map svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.map-path{fill:none;stroke:var(--frame);stroke-width:2;stroke-dasharray:4 9;vector-effect:non-scaling-stroke}
+.parcel{position:absolute;left:0;top:0;width:1.25rem;height:1.25rem;background:var(--accent);box-shadow:.375rem .375rem 0 0 var(--sheet-a);translate:-50% -50%}
+.wp{position:absolute;translate:-50% -50%;width:2.75rem;height:2.75rem;display:grid;place-items:center;background:var(--surface);border:2px solid var(--frame);transition:border-color .3s,background .3s}
+.wp b{font-size:.8rem;color:var(--muted)}
+.wp.on{border-color:var(--brand);background:var(--brand)}.wp.on b{color:#fff}
+.w1{left:35%;top:27%}.w2{left:66.7%;top:73%}.w3{left:97.5%;top:27%}
+.legs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1.25rem,3vw,3rem);margin:0;padding:0;list-style:none}
+.leg{display:flex;flex-direction:column;gap:.875rem;padding-top:1.25rem;border-top:2px solid var(--line);transition:border-color .3s}
+.leg.on{border-color:var(--brand)}
+.leg .no{font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--brand)}
+.legs p{font-size:clamp(1.25rem,1.05rem + .6vw,1.65rem);line-height:1.4;color:var(--ink)}
+
+/* ---------- services ---------- */
+.svc-e{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1.25rem,2.5vw,2.5rem);align-items:stretch}
+.svc-e>div{display:flex;flex-direction:column;gap:1rem}
+.svc-card{display:flex;flex-direction:column;gap:.75rem;padding:2rem;background:var(--surface);border:1px solid var(--line);transition:translate .3s var(--ease),box-shadow .3s var(--ease)}
+.svc-card:hover{translate:-.25rem -.25rem;box-shadow:.625rem .625rem 0 0 var(--sheet-a)}
+.svc-card .tag{align-self:flex-start;background:var(--board);color:var(--flap-hi);font-weight:800;padding:.25rem .5rem;font-size:.8rem;letter-spacing:.1em}
+.svc-card h3{font-size:clamp(1.5rem,1.2rem + .7vw,2rem);color:var(--brand)}
+.svc-card p{color:var(--ink-2)}
+
+/* ---------- departures board of brands ---------- */
+.dep{background:var(--board);color:var(--flap-ink);padding:clamp(1rem,2vw,1.75rem);position:relative;isolation:isolate}
+.dep{box-shadow:1rem 1rem 0 0 var(--sheet-a)}
+.dep-head{display:grid;grid-template-columns:6rem 1fr 4.5rem;gap:1rem;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:#9DB4FF;padding:0 .5rem .75rem;border-bottom:1px solid rgba(255,255,255,.14)}
+.dep-rows{display:grid;grid-template-columns:1fr 1fr;column-gap:2rem}
+.dep-rows li{display:grid;grid-template-columns:6rem 1fr 4.5rem;gap:1rem;align-items:center;padding:.625rem .5rem;border-bottom:1px dashed rgba(255,255,255,.1);transition:background .2s}
+.dep-rows li:hover{background:rgba(255,255,255,.05)}
+.dep-rows .n{font-size:.8rem;color:#9DB4FF;letter-spacing:.08em}
+.dep-rows .flap{font-size:clamp(.95rem,.8rem + .4vw,1.25rem)}
+.dep-rows img{width:4.5rem;height:3rem;object-fit:contain;background:#fff;padding:.25rem}
+
+/* ---------- David, contact pass ---------- */
+.note h2{font-size:clamp(2rem,1.3rem + 2vw,3.3rem)}
+.strong-e{color:var(--brand)!important;font-weight:700}
+.pass{display:grid;grid-template-columns:minmax(0,1fr) 13rem;background:rgba(255,255,255,.05);border:1px solid rgba(238,242,255,.18);position:relative;isolation:isolate}
+.pass::before{content:"";position:absolute;inset:-1rem 1rem 1rem -1rem;border:1px solid rgba(157,180,255,.35);z-index:-1}
+.pass-main{padding:clamp(1.75rem,3vw,3rem);display:flex;flex-direction:column;gap:1rem}
+.contact h2{margin:.25rem 0}
+.pass-rows{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:.75rem 0 .5rem}
+.pass-rows div{border-top:1px solid rgba(238,242,255,.16);padding-top:.75rem}
+.pass-rows dt{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--band-accent)}
+.pass-rows dd{margin:.375rem 0 0}.pass-rows a{font:700 clamp(1.3rem,1rem + 1vw,2rem)/1.2 var(--f-head);color:var(--band-ink);text-decoration:none}
+.pass-rows a:hover{color:var(--band-accent)}
+.pass-stub{display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;gap:1rem;padding:2rem 1.5rem;border-left:2px dashed rgba(238,242,255,.22)}
+.pass-stub span.mono{font-weight:800;letter-spacing:.14em;color:var(--band-ink)}
+.pass-stub .bars{width:100%;height:4rem;background:repeating-linear-gradient(90deg,var(--band-ink) 0 2px,transparent 2px 4px,var(--band-ink) 4px 5px,transparent 5px 8px,var(--band-ink) 8px 11px,transparent 11px 13px);opacity:.6}
+
+/* ---------- flight path (wide screens) ---------- */
+.flightpath{position:fixed;left:calc(var(--gut) / 2 - .5rem);top:50%;translate:0 -50%;z-index:40;display:flex;flex-direction:column;gap:1.5rem;padding:.5rem 0}
+.fp-line{position:absolute;left:.5rem;top:.75rem;bottom:.75rem;width:2px;translate:-50% 0;background:repeating-linear-gradient(var(--brand-2) 0 4px,transparent 4px 9px);opacity:.45}
+.fp-fill{position:absolute;left:0;top:0;width:2px;height:calc(var(--fp,0) * 100%);background:var(--brand);transition:height .2s linear}
+.flightpath a{position:relative;display:flex;align-items:center;gap:.75rem;text-decoration:none;color:var(--muted)}
+.flightpath i{width:.75rem;height:.75rem;margin-left:.125rem;background:var(--paper);border:2px solid var(--frame);transition:background .25s,border-color .25s,transform .25s}
+.flightpath span{font:700 .68rem/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase;opacity:0;translate:-.25rem 0;transition:opacity .2s,translate .2s;white-space:nowrap;background:var(--paper);padding:.25rem .4rem}
+.flightpath a:hover span,.flightpath a:focus-visible span,.flightpath a.on span{opacity:1;translate:0 0}
+.flightpath a.on{color:var(--brand)}.flightpath a.on i{background:var(--brand);border-color:var(--brand);transform:rotate(45deg)}
+.flightpath a.done i{border-color:var(--brand)}
+@media (max-width:1280px){.flightpath{display:none}}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .hero-e-in{grid-template-columns:1fr;min-height:0}
+  .sec-head-e{grid-template-columns:1fr}
+  .ticket-grid,.svc-e,.legs{grid-template-columns:1fr}
+  .dep-rows{grid-template-columns:1fr}
+  .map{display:none}
+}
+@media (max-width:760px){
+  .ticket{grid-template-columns:1fr}.t-stub{border-left:0;border-top:2px dashed var(--line);flex-direction:row;align-items:center;flex-wrap:wrap}
+  .t-stub::before,.t-stub::after{display:none}.t-stub .bars{flex:1 1 100%;height:2rem}.route-ic{width:7rem}
+  .pass{grid-template-columns:1fr}.pass-stub{border-left:0;border-top:2px dashed rgba(238,242,255,.22);flex-direction:row;align-items:center}.pass-stub .bars{flex:1;height:2.5rem}
+  .pass-rows{grid-template-columns:1fr}
+  .dep-head,.dep-rows li{grid-template-columns:3.75rem 1fr 3.5rem;gap:.625rem}.dep-rows img{width:3.5rem;height:2.4rem}
+  .board .flap{font-size:2rem}
+}
+@media (prefers-reduced-motion:reduce){.flap .c.turn{animation:none}}

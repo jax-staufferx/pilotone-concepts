@@ -1,0 +1,24 @@
+/* P1-A "refined": the original page with what we learned on RPM.
+   No dotted grid (pools and a fine grain carry the background), flat paper instead of blurred shadows and gradient
+   sheets, solid headings with the brand blue kept for key words. Light and dark both covered by the tokens. */
+:root{--shadow:.625rem .625rem 0 0 var(--sheet-a)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--shadow:.625rem .625rem 0 0 var(--sheet-a)}}
+:root[data-theme="dark"]{--shadow:.625rem .625rem 0 0 var(--sheet-a)}
+
+/* background: drop the dotted grid; add fine grain so the pools never band */
+main::before{opacity:1;-webkit-mask-image:none;mask-image:none;background-size:auto;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .55  0 0 0 0 .7  0 0 0 .05 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+
+/* headings: solid ink; the brand blue marks what matters */
+.hero h1,.note h2,.svc-head h2,.brands h2,.partners h2{background:none;color:var(--ink)}
+.hero h1 .hi{color:var(--brand)}
+.note h2::after,.svc-head h2::after,.brands h2::after,.partners h2::after{background:var(--brand)}
+.statement{border-image:none;border-left-color:var(--brand)}
+.eyebrow::before{background:var(--brand)}
+
+/* flat paper: the sheet behind photos is one flat tone; shadows are flat offset plates */
+.depth::before{background:var(--sheet-a)}
+.def{box-shadow:var(--shadow)}
+.row li:hover{transform:translate(-.25rem,-.25rem);box-shadow:.5rem .5rem 0 0 var(--sheet-a)}
+.svc-list li::after{background:var(--brand)}
+.head.js-scrolled{box-shadow:none;border-bottom-color:var(--frame)}

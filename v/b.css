@@ -1,0 +1,26 @@
+/* P1-B "sharp": P1-A with a harder edge. Archivo headings set wide and tight, caps buttons and labels, and each
+   section opens on a dashed flight route (the same dashes as the hero routes and the trade band) carrying its name.
+   The italic serif stays only where it is a signature: the *Bureau definition, the promise line, David's name. */
+:root{--f-head:"Archivo","Helvetica Neue",system-ui,sans-serif;--r:0}
+h1,h2,h3{font-stretch:112%;font-weight:800;letter-spacing:-.035em;line-height:1.02}
+.hero h1{font-weight:850;letter-spacing:-.045em;line-height:.95}
+.hero .sub{font-stretch:108%;letter-spacing:-.01em}
+.facts .n{font-stretch:120%;font-weight:850;letter-spacing:-.04em}
+.def .w,.dest,.sign,.statement,.note .big,.start .strong{font-family:"Frank Ruhl Libre","Times New Roman",serif}
+.statement{font-stretch:normal}
+.btn{text-transform:uppercase;letter-spacing:.08em;font-size:.88rem;font-weight:800}
+.btn.small{font-size:.78rem}
+.tbtn,.quick a{border-radius:0}
+.brand .word{font-family:"Archivo",sans-serif;font-stretch:118%;font-weight:800}
+/* flight-route dividers */
+[data-route]{position:relative}
+[data-route]::before{content:"";position:absolute;top:0;left:var(--gut);right:var(--gut);height:2px;pointer-events:none;
+  background:repeating-linear-gradient(90deg,var(--route) 0 .5rem,transparent .5rem 1.25rem);opacity:1}
+[data-route]::after{content:attr(data-route);position:absolute;top:-.7rem;left:calc(var(--gut) + 2.5rem);padding:.25rem .875rem;
+  font:800 .7rem/1 var(--f-body);letter-spacing:.18em;text-transform:uppercase;color:var(--brand);background:var(--paper);border:1px solid var(--frame)}
+:root{--route:rgba(51,102,255,.38)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--route:rgba(125,155,255,.4)}}
+:root[data-theme="dark"]{--route:rgba(125,155,255,.4)}
+.routes path{stroke:rgba(51,102,255,.16)}
+/* square tiles everywhere */
+.row li,.plogos li,.depth img,.depth::before,.depth::after{border-radius:0}

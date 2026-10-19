@@ -1,0 +1,29 @@
+/* P1-C "layered": P1-A with stacked paper behind the key pieces, like RPM's V4-L. A hairline frame offset up-left,
+   a flat plate offset down-right, no blur. The hero photo becomes a framed print; services, the "starting a new
+   business" note and the contact details sit on paper; brand tiles get a plate on hover. */
+:root{--off:1.125rem}
+.lay{position:relative;isolation:isolate}
+/* hero: the photo as a framed print instead of a faded edge */
+.hero{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.hero-photo{margin:clamp(2rem,4vw,4rem) max(var(--gut),calc((100vw - var(--max)) / 2 + var(--gut))) clamp(2rem,4vw,4rem) 1rem;overflow:visible;isolation:isolate}
+.hero-photo img{-webkit-mask-image:none;mask-image:none;border:1px solid var(--line)}
+.hero-photo::after{display:none}
+.hero-photo::before{content:"";position:absolute;inset:var(--off) calc(var(--off) * -1) calc(var(--off) * -1) var(--off);background:var(--sheet-a);z-index:-1}
+.hp-frame{position:absolute;inset:calc(var(--off) * -1) var(--off) var(--off) calc(var(--off) * -1);border:1px solid var(--frame);z-index:-1;pointer-events:none}
+/* services: each service a flat panel; the note on a plate */
+.svc-list{display:grid;gap:1.75rem}
+.svc-list li{background:var(--surface);border:1px solid var(--line);padding:2rem 2rem 2.125rem;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.svc-list li:last-child{border-bottom:1px solid var(--line)}
+.svc-list li::after{display:none}
+.svc-list li:hover{transform:translate(-.25rem,-.25rem);box-shadow:.625rem .625rem 0 0 var(--sheet-a)}
+.start{border-left:0;border:1px solid var(--line);box-shadow:.875rem .875rem 0 0 var(--sheet-a),.875rem .875rem 0 1px var(--frame)}
+/* the definition card in the hero: framed */
+.def{border-left-width:3px;box-shadow:.625rem .625rem 0 0 var(--sheet-a)}
+/* contact: the details on a band-coloured sheet with a frame */
+.reach{position:relative;isolation:isolate;padding:2rem 2.25rem;background:rgba(255,255,255,.04);border:1px solid rgba(238,242,255,.16)}
+.reach::before{content:"";position:absolute;inset:calc(var(--off) * -1) var(--off) var(--off) calc(var(--off) * -1);border:1px solid rgba(157,180,255,.35);z-index:-1}
+.reach::after{content:"";position:absolute;inset:var(--off) calc(var(--off) * -1) calc(var(--off) * -1) var(--off);background:var(--band-2);z-index:-1}
+/* brand tiles: flat, plate on hover */
+.row li{border-radius:0}
+@media (max-width:1080px){.hero{grid-template-columns:minmax(0,1fr)}.hero-photo{margin:1.5rem var(--gut) .5rem;height:auto;aspect-ratio:16/9}.hero-photo img{position:absolute}}
+@media (max-width:760px){:root{--off:.625rem}}
